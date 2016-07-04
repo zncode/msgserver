@@ -11,12 +11,14 @@ server.listen(1234, function(){
     console.log('Server listening at port 1234');
 });
 
-io = socket_io(server);
+io = socket_io.listen(server);
 
 var messages = [];
 
-io.sockets.on('connection', function(socket){
+io.on('connection', function(socket){
     console.log('tt');
+    socket.emit('news', {hello: 'world'});
+
     socket.on('message', function(msg){
         console.log(msg);
         messages.push(msg);
@@ -26,4 +28,4 @@ io.sockets.on('connection', function(socket){
         socket.send(msg);
     });
 });
-
+ 
